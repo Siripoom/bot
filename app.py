@@ -1,137 +1,264 @@
 from __future__ import annotations
-
 from pathlib import Path
-
 import streamlit as st
-
+import base64
+import os
 from rag.config import load_settings
 from rag.models import RetrievedChunk
 from rag.pipeline import RAGPipeline
 
+# --- 1. SET PAGE CONFIG ---
+st.set_page_config(
+    page_title="Askgiraffe - ผู้ช่วยหลักสูตรคณะครุศาสตร์อุตสาหกรรม", 
+    page_icon="Askgiraffe.png",
+    layout="wide"
+)
 
-st.set_page_config(page_title="Gemini PDF RAG Chatbot", layout="wide")
+# --- 2. ASSETS LOADING (Base64) ---
+def get_base64_image(image_path):
+    try:
+        if os.path.exists(image_path):
+            with open(image_path, "rb") as img_file:
+                return base64.b64encode(img_file.read()).decode()
+        return ""
+    except: return ""
 
+bg_image = get_base64_image("gb.jpg")
+bot_logo = get_base64_image("Askgiraffe.png")
 
+# --- 3. FULL CUSTOM CSS (ปรับปรุง Sidebar ให้สวยงามและอ่านง่าย) ---
+st.markdown(f"""
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap');
+    
+    # /* Import Material Icons เพื่อแก้ปัญหาข้อความ keyboard_double_arrow_right */
+    # @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+    * {{ font-family: 'Kanit', sans-serif !important; }}
+
+    /* Background Setup */
+    .stApp {{
+        background-image: url('data:image/jpeg;base64,{bg_image}');
+        background-size: cover; background-position: center;
+        background-repeat: no-repeat; background-attachment: fixed;
+    }}
+    .stApp::before {{
+        content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(255, 255, 255, 0.85); z-index: -1;
+    }}
+
+    /* --- Sidebar Modern Emerald Design --- */
+    [data-testid="stSidebar"] {{
+        background: linear-gradient(180deg, #ECFDF5 0%, #D1FAE5 100%);
+        border-right: 1px solid #A7F3D0;
+    }}
+
+    /* หัวข้อ Sidebar - สีดำเข้มอ่านง่าย */
+    [data-testid="stSidebar"] h3 {{
+        color: #064E3B !important;
+        font-weight: 700 !important;
+        font-size: 1.25rem !important;
+        margin-top: 1.5rem !important;
+        border-left: 5px solid #10B981;
+        padding-left: 10px !important;
+    }}
+
+    /* ตัวหนังสือทั่วไปใน Sidebar - สีดำสนิท */
+    [data-testid="stSidebar"] p, [data-testid="stSidebar"] span, [data-testid="stSidebar"] label {{
+        color: #111827 !important;
+        font-weight: 500 !important;
+    }}
+
+    /* Sidebar Content Card - สีขาวสะอาดตา */
+    .sidebar-card {{
+        background: white;
+        padding: 1.25rem;
+        border-radius: 1rem;
+        border: 1px solid #A7F3D0;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }}
+
+    /* Sidebar Buttons - Emerald Green */
+    [data-testid="stSidebar"] .stButton > button {{
+        width: 100%;
+        border-radius: 0.8rem !important;
+        background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
+        color: white !important;
+        border: none !important;
+        font-weight: 600 !important;
+        padding: 0.6rem !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2) !important;
+    }}
+    [data-testid="stSidebar"] .stButton > button:hover {{
+        background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(5, 150, 105, 0.3) !important;
+    }}
+
+    /* --- Chat Display Styling --- */
+    .main-header {{
+        font-size: 3rem; font-weight: 700; text-align: center; margin-bottom: 0.5rem;
+        background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }}
+    .sub-header {{
+        font-size: 1.3rem; font-weight: 600; color: #047857; text-align: center; margin-bottom: 2.5rem;
+    }}
+    .chat-message {{
+        padding: 1.75rem; border-radius: 1rem; margin-bottom: 1.25rem;
+        display: flex; flex-direction: column; color: #1F2937;
+        transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }}
+    .user-message {{
+        background: white;
+        border-right: 5px solid #10B981; border: 2px solid #D1FAE5;
+        margin-left: 15%; align-items: flex-end; text-align: right;
+    }}
+    .bot-message {{
+        background: #F0FDF4;
+        border-left: 5px solid #059669; border: 1px solid #D1FAE5;
+        margin-right: 15%; align-items: flex-start; text-align: left;
+    }}
+    .message-label {{ font-weight: 600; margin-bottom: 0.75rem; font-size: 1rem; }}
+    .user-label {{ color: #10B981; }}
+    .bot-label {{ color: #059669; }}
+
+    /* Welcome Stage */
+    .welcome-stage {{ min-height: 48vh; display: flex; align-items: center; justify-content: center; }}
+    .welcome-card {{
+        width: 100%; max-width: 820px; padding: 2.25rem 2rem; border-radius: 1.25rem;
+        background: rgba(255, 255, 255, 0.95);
+        border: 2px solid #A7F3D0; box-shadow: 0 10px 26px rgba(5, 150, 105, 0.16); text-align: center;
+    }}
+</style>
+""", unsafe_allow_html=True)
+
+# --- 4. CORE LOGIC ---
 @st.cache_resource
 def get_pipeline() -> RAGPipeline:
     return RAGPipeline()
 
-
-
 def _recent_history(messages: list[dict], turns: int) -> list[dict]:
     max_messages = max(1, turns * 2)
-    history = [
-        {"role": msg["role"], "content": msg["content"]}
-        for msg in messages
-        if msg.get("role") in {"user", "assistant"}
-    ]
-    return history[-max_messages:]
+    return [{"role": msg["role"], "content": msg["content"]} for msg in messages if msg.get("role") in {"user", "assistant"}][-max_messages:]
 
-
-
-def _snippet(text: str, limit: int = 180) -> str:
-    compact = " ".join(text.split())
-    if len(compact) <= limit:
-        return compact
-    return compact[: limit - 3] + "..."
-
-
-
-def _render_citations(citations: list[RetrievedChunk]) -> None:
-    if not citations:
-        return
-
-    st.caption("แหล่งอ้างอิง")
-    for c in citations:
-        st.markdown(f"- `{c.file_name}` | หน้า {c.page} | {_snippet(c.text)}")
-
-
+# --- 5. SIDEBAR (ปรับปรุงให้สวยงามและอ่านง่าย) ---
 settings = load_settings()
-st.title("RAG Chatbot (Gemini + PDF)")
+pipeline = get_pipeline()
 
 with st.sidebar:
-    st.subheader("System Status")
-    st.write(f"GEN model: `{settings.gen_model}`")
-    st.write(f"Embedding model: `{settings.embed_model}`")
-    st.write(f"Vector DB: `{settings.chroma_dir}`")
-
-    if not settings.gemini_api_key:
-        st.error("ไม่พบ GEMINI_API_KEY ในไฟล์ .env")
-
-    pdf_files = sorted(Path(settings.pdf_dir).glob("*.pdf"))
-    st.write(f"PDF files: `{len(pdf_files)}`")
-
-    if st.button("Re-index from data/pdfs", use_container_width=True):
-        try:
-            pipe = get_pipeline()
-            with st.spinner("กำลังสร้างดัชนีจาก PDF..."):
-                result = pipe.index_pdfs(pdf_dir=str(settings.pdf_dir), reset=True)
-            st.success(
-                f"Index เสร็จ: files={result['indexed_files']}, chunks={result['indexed_chunks']}"
-            )
-        except Exception as exc:
-            st.error(f"Index failed: {exc}")
-
-    if st.button("Clear session", use_container_width=True):
+    # Branding Area
+    st.markdown(f"""
+        <div style="text-align: center; margin-bottom: 1.5rem; background: white; padding: 1.5rem; border-radius: 1.5rem; border: 2px solid #10B981; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+            <img src="data:image/png;base64,{bot_logo}" style="width: 70px; margin-bottom: 10px;">
+            <div style="font-size: 1.6rem; font-weight: 800; color: #064E3B;">Askgiraffe</div>
+            <div style="font-size: 0.95rem; color: #374151; font-weight: 500; margin-top: 5px;">
+                ผู้ช่วยหลักสูตรคณะครุศาสตร์ฯ มจพ.
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    # System Control
+    st.markdown("### ⚙️ จัดการระบบ")
+    if st.button("🗑️ ล้างประวัติการสนทนา"):
         st.session_state["messages"] = []
         st.rerun()
 
-try:
-    pipeline = get_pipeline()
-except Exception as exc:
-    st.error(f"ไม่สามารถเริ่มระบบได้: {exc}")
-    st.stop()
+    # Document Stats
+    st.markdown("### 📊 ระบบเอกสาร")
+    pdf_files = sorted(Path(settings.pdf_dir).glob("*.pdf"))
+    st.markdown(f"""
+        <div class="sidebar-card">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 1rem; color: #111827;">ไฟล์ในระบบ:</span>
+                <span style="background: #064E3B; color: white; padding: 4px 12px; border-radius: 8px; font-weight: 700;">
+                    {len(pdf_files)} ไฟล์
+                </span>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
 
-stats = pipeline.get_index_stats()
-with st.sidebar:
-    st.write(f"Indexed docs: `{stats['document_count']}`")
-    st.write(f"Indexed chunks: `{stats['chunk_count']}`")
+    if st.button("🔄 อัปเดต Index เอกสาร"):
+        with st.spinner("กำลังอัปเดต..."):
+            pipeline.index_pdfs(pdf_dir=str(settings.pdf_dir), reset=True)
+        st.success("อัปเดตสำเร็จ!")
 
-if not pdf_files:
-    st.warning("โฟลเดอร์ data/pdfs ยังไม่มีไฟล์ PDF")
+    # Contact Card
+    st.markdown("### 📞 ติดต่อสอบถาม")
+    st.markdown(f"""
+        <div class="sidebar-card">
+            <div style="color: #111827; line-height: 1.8;">
+                📧 <a href="http://admission.kmutnb.ac.th" style="color: #059669; text-decoration: none; font-weight: 700;">admission.kmutnb.ac.th</a><br>
+                ☎️ <span style="font-weight: 700;">02-555-2000</span><br>
+                🏢 <span style="font-size: 0.9rem; font-weight: 600;">คณะครุศาสตร์อุตสาหกรรม</span>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
 
-if not pipeline.has_index():
-    st.warning("ยังไม่มี index กรุณากด Re-index from data/pdfs ก่อนใช้งาน")
-
+# --- 6. MAIN CONTENT AREA ---
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
 
-for msg in st.session_state["messages"]:
-    with st.chat_message("user" if msg["role"] == "user" else "assistant"):
-        st.markdown(msg["content"])
-        if msg["role"] == "assistant":
-            _render_citations(msg.get("citations", []))
+# Welcome Screen
+if len(st.session_state["messages"]) == 0:
+    st.markdown(f"""
+        <div class="welcome-stage">
+            <div class="welcome-card">
+                <div style="color: #047857; font-size: 2.2rem; font-weight: 800; margin-bottom: 0.75rem;">สวัสดีครับ 👋 ยินดีต้อนรับสู่ Askgiraffe</div>
+                <p style="color: #1F2937; font-size: 1.1rem; font-weight: 500;">ผมพร้อมช่วยตอบคำถามเกี่ยวกับหลักสูตรคณะครุศาสตร์อุตสาหกรรม มจพ.<br>พิมพ์คำถามของคุณได้เลย แล้วผมจะช่วยค้นหาคำตอบให้อย่างรวดเร็ว</p>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    _, center_col, _ = st.columns([1, 2.5, 1])
+    with center_col:
+        st.markdown('<div style="text-align: center; color: #047857; font-weight: 600; margin-bottom: 0.5rem;">เริ่มถามคำถามแรกของคุณได้ที่นี่</div>', unsafe_allow_html=True)
+        query = st.chat_input("✨ พิมพ์คำถามของคุณที่นี่...")
+else:
+    # Header
+    st.markdown(f'<div class="main-header"><img src="data:image/png;base64,{bot_logo}" style="width: 80px; vertical-align: middle; margin-right: 15px;"> Askgiraffe</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-header">ผู้ช่วยให้คำปรึกษาหลักสูตร คณะครุศาสตร์อุตสาหกรรม มจพ.</div>', unsafe_allow_html=True)
+    st.markdown('<h3 style="color: #059669; font-weight: 600; border-left: 5px solid #10B981; padding-left: 15px;">💬 พื้นที่แชท</h3>', unsafe_allow_html=True)
 
-query = st.chat_input("พิมพ์คำถามจากเอกสาร PDF...")
+    # Chat History
+    for msg in st.session_state["messages"]:
+        if msg["role"] == "user":
+            st.markdown(f'''<div class="chat-message user-message"><div class="message-label user-label">🙋 คุณ:</div><div>{msg["content"]}</div></div>''', unsafe_allow_html=True)
+        else:
+            st.markdown(f'''
+                <div class="chat-message bot-message">
+                    <div class="message-label bot-label">
+                        <img src="data:image/png;base64,{bot_logo}" style="width: 28px; height: 28px; vertical-align: middle; margin-right: 8px;"> 
+                        Askgiraffe:
+                    </div>
+                    <div>{msg["content"]}</div>
+                </div>
+            ''', unsafe_allow_html=True)
+            # if msg.get("citations"):
+            #     with st.expander("📚 เอกสารอ้างอิง", expanded=False):
+            #         for c in msg["citations"]:
+            #             st.markdown(f"📍 **{c.file_name}** (หน้า {c.page}): {c.text[:250]}...")
+
+    query = st.chat_input("✨ พิมพ์คำถามของคุณที่นี่...")
+
+# --- 7. CHAT PROCESSING ---
 if query:
     st.session_state["messages"].append({"role": "user", "content": query})
-    with st.chat_message("user"):
-        st.markdown(query)
+    st.rerun()
 
-    if not settings.gemini_api_key:
-        answer_text = "ไม่พบ GEMINI_API_KEY จึงไม่สามารถตอบคำถามได้"
-        citations = []
-    elif not pipeline.has_index():
-        answer_text = "ยังไม่มี index ของเอกสาร กรุณากด Re-index from data/pdfs ก่อน"
-        citations = []
-    else:
+if st.session_state["messages"] and st.session_state["messages"][-1]["role"] == "user":
+    last_query = st.session_state["messages"][-1]["content"]
+    with st.spinner('🤔 กำลังวิเคราะห์ข้อมูลและหาคำตอบ...'):
         try:
             history = _recent_history(st.session_state["messages"][:-1], turns=settings.memory_turns)
-            result = pipeline.ask(query=query, history=history)
-            answer_text = result.answer_text
-            citations = result.citations
-        except Exception as exc:
-            answer_text = f"เกิดข้อผิดพลาดระหว่างประมวลผล: {exc}"
-            citations = []
-
-    with st.chat_message("assistant"):
-        st.markdown(answer_text)
-        _render_citations(citations)
-
-    st.session_state["messages"].append(
-        {
-            "role": "assistant",
-            "content": answer_text,
-            "citations": citations,
-        }
-    )
+            result = pipeline.ask(query=last_query, history=history)
+            st.session_state["messages"].append({
+                "role": "assistant", 
+                "content": result.answer_text, 
+                "citations": result.citations
+            })
+        except Exception as e:
+            st.error(f"เกิดข้อผิดพลาด: {e}")
+    st.rerun()
