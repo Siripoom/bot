@@ -43,6 +43,7 @@ class ChromaVectorStore:
                 "chunk_id": chunk.id,
                 "source_path": chunk.source_path,
                 "token_count": chunk.token_count,
+                **(chunk.metadata or {}),
             }
             for chunk in chunks
         ]

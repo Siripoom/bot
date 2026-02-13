@@ -1,0 +1,88 @@
+Askgiraffe Chatbot Workflow (RAG)
+=================================
+
+ภาพรวม
+------
+ระบบนี้เป็น Chatbot แบบ RAG (Retrieval-Augmented Generation)
+แนวคิดคือ: ค้นข้อมูลจาก PDF ก่อน แล้วค่อยให้โมเดลตอบโดยยึดตามหลักฐานที่ค้นเจอ
+
+
+Flow 1: การเตรียมข้อมูล (Indexing)
+-----------------------------------
+
+[เริ่ม]
+   |
+   v
+[อ่านไฟล์ PDF จาก data/pdfs]
+   |
+   v
+[ดึงข้อความรายหน้า + ทำความสะอาดข้อความ]
+   |
+   v
+[ตัดข้อความเป็น Chunk (มี overlap)]
+   |
+   v
+[แปลงแต่ละ Chunk เป็น Embedding (gemini-embedding-001)]
+   |
+   v
+[บันทึกลง Chroma Vector DB พร้อม Metadata]
+   |
+   v
+[จบ: พร้อมตอบคำถาม]
+
+
+Flow 2: การตอบคำถาม (ถาม-ตอบจริง)
+---------------------------------
+
+[ผู้ใช้พิมพ์คำถามใน Streamlit]
+   |
+   v
+[ดึงประวัติแชทย้อนหลังตาม memory_turns]
+   |
+   v
+[Embed คำถาม + ค้น Top-K Chunk จาก Chroma]
+   |
+   v
+[Gate ชั้น 1: Similarity Threshold]
+   |
+   +---- ไม่ผ่าน ----> [ตอบปฏิเสธมาตรฐาน] ---> [จบ]
+   |
+   v
+[Gate ชั้น 2: LLM Relevance Judge]
+   |
+   +---- ไม่ผ่าน / confidence ต่ำ ----> [ตอบปฏิเสธมาตรฐาน] ---> [จบ]
+   |
+   v
+[เลือก Chunk ที่ผ่านเกณฑ์]
+   |
+   v
+[Generate คำตอบด้วย Gemini (ตอบไทย, ห้ามเดา, ใช้เฉพาะ CONTEXT)]
+   |
+   v
+[ส่งคำตอบกลับผู้ใช้ + เก็บ log]
+   |
+   v
+[จบ]
+
+
+นโยบายสำคัญของระบบ
+-------------------
+1) ตอบจากเอกสารที่มีเท่านั้น
+2) ถ้าหลักฐานไม่พอ ต้องปฏิเสธด้วยข้อความมาตรฐาน
+3) มีการใช้ทั้ง score gate และ LLM gate เพื่อกัน Hallucination
+4) บันทึก log การทำงานไว้ที่ logs/app.log
+
+
+ไฟล์หลักที่เกี่ยวข้อง
+---------------------
+- app.py                    : UI และวงจรรับ/ส่งข้อความ
+- rag/pipeline.py           : orchestration ของ RAG ทั้งหมด
+- rag/pdf_loader.py         : อ่าน PDF
+- rag/chunker.py            : chunking
+- rag/embedder.py           : embeddings
+- rag/vector_store.py       : Chroma vector store
+- rag/retriever.py          : retrieval
+- rag/gates.py              : score gate + LLM gate
+- rag/generator.py          : answer generation
+- rag/config.py             : config และ refusal message
+

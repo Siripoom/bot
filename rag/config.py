@@ -19,10 +19,18 @@ class Settings:
     embed_model: str = "gemini-embedding-001"
     pdf_dir: Path = Path("data/pdfs")
     chroma_dir: Path = Path("storage/chroma")
-    top_k: int = 8
-    sim_threshold: float = 0.58
+    top_k: int = 12
+    sim_threshold: float = 0.55
     gate_conf_threshold: float = 0.65
     collection_name: str = "pdf_rag_chunks"
+    qa_json_path: Path = Path("data/json/qa_prompt.json")
+    qa_collection_name: str = "qa_prompt_chunks"
+    qa_top_k: int = 5
+    qa_sim_threshold: float = 0.60
+    partial_enabled: bool = True
+    partial_min_score: float = 0.68
+    partial_min_chunks: int = 2
+    answer_style_policy: str = "auto"
     log_file: Path = Path("logs/app.log")
     memory_turns: int = 6
 
@@ -43,12 +51,31 @@ def load_settings() -> Settings:
         embed_model=os.getenv("EMBED_MODEL", "gemini-embedding-001").strip(),
         pdf_dir=Path(os.getenv("PDF_DIR", "data/pdfs")),
         chroma_dir=Path(os.getenv("CHROMA_DIR", "storage/chroma")),
-        top_k=int(os.getenv("TOP_K", "8")),
-        sim_threshold=float(os.getenv("SIM_THRESHOLD", "0.58")),
+        top_k=int(os.getenv("TOP_K", "12")),
+        sim_threshold=float(os.getenv("SIM_THRESHOLD", "0.55")),
         gate_conf_threshold=float(os.getenv("GATE_CONF_THRESHOLD", "0.65")),
         collection_name=os.getenv("CHROMA_COLLECTION", "pdf_rag_chunks").strip(),
+        qa_json_path=Path(os.getenv("QA_JSON_PATH", "data/json/qa_prompt.json")),
+        qa_collection_name=os.getenv("QA_COLLECTION", "qa_prompt_chunks").strip(),
+        qa_top_k=int(os.getenv("QA_TOP_K", "5")),
+        qa_sim_threshold=float(os.getenv("QA_SIM_THRESHOLD", "0.60")),
+        partial_enabled=_env_bool(os.getenv("PARTIAL_ENABLED"), default=True),
+        partial_min_score=float(os.getenv("PARTIAL_MIN_SCORE", "0.68")),
+        partial_min_chunks=int(os.getenv("PARTIAL_MIN_CHUNKS", "2")),
+        answer_style_policy=os.getenv("ANSWER_STYLE_POLICY", "auto").strip() or "auto",
         log_file=Path(os.getenv("LOG_FILE", "logs/app.log")),
         memory_turns=int(os.getenv("MEMORY_TURNS", "6")),
     )
     settings.ensure_paths()
     return settings
+
+
+def _env_bool(value: str | None, default: bool) -> bool:
+    if value is None:
+        return default
+    normalized = value.strip().lower()
+    if normalized in {"1", "true", "yes", "y", "on"}:
+        return True
+    if normalized in {"0", "false", "no", "n", "off"}:
+        return False
+    return default

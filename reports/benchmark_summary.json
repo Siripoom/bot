@@ -1,0 +1,1291 @@
+{
+  "dataset_path": "data/json/qa_prompt.json",
+  "evaluated_at": "2026-02-13T11:09:35.874775+00:00",
+  "model_chatbot": "RAGPipeline(gen=gemini-2.5-flash, embed=gemini-embedding-001)",
+  "model_gemini_direct": "gemini-2.5-flash (context_mode=pdf)",
+  "model_judge": "gemini-2.5-flash",
+  "total_questions": 113,
+  "chatbot_metrics": {
+    "correct_count": 28,
+    "incorrect_count": 85,
+    "correct_pct": 24.78,
+    "incorrect_pct": 75.22
+  },
+  "gemini_metrics": {
+    "correct_count": 21,
+    "incorrect_count": 92,
+    "correct_pct": 18.58,
+    "incorrect_pct": 81.42
+  },
+  "delta_correct_pct": 6.2,
+  "by_source_document": {
+    "คอมพิวเตอร์ 4 ปี": {
+      "total": 23,
+      "chatbot_metrics": {
+        "correct_count": 4,
+        "incorrect_count": 19,
+        "correct_pct": 17.39,
+        "incorrect_pct": 82.61
+      },
+      "gemini_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 22,
+        "correct_pct": 4.35,
+        "incorrect_pct": 95.65
+      }
+    },
+    "คอมพิวเตอร์ เทียบโอน": {
+      "total": 23,
+      "chatbot_metrics": {
+        "correct_count": 4,
+        "incorrect_count": 19,
+        "correct_pct": 17.39,
+        "incorrect_pct": 82.61
+      },
+      "gemini_metrics": {
+        "correct_count": 2,
+        "incorrect_count": 21,
+        "correct_pct": 8.7,
+        "incorrect_pct": 91.3
+      }
+    },
+    "คู่มือนักศึกษา": {
+      "total": 34,
+      "chatbot_metrics": {
+        "correct_count": 9,
+        "incorrect_count": 25,
+        "correct_pct": 26.47,
+        "incorrect_pct": 73.53
+      },
+      "gemini_metrics": {
+        "correct_count": 9,
+        "incorrect_count": 25,
+        "correct_pct": 26.47,
+        "incorrect_pct": 73.53
+      }
+    },
+    "เล่มวิชาศึกษาทั่วไป": {
+      "total": 6,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 6,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 6,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "โยธา": {
+      "total": 27,
+      "chatbot_metrics": {
+        "correct_count": 11,
+        "incorrect_count": 16,
+        "correct_pct": 40.74,
+        "incorrect_pct": 59.26
+      },
+      "gemini_metrics": {
+        "correct_count": 9,
+        "incorrect_count": 18,
+        "correct_pct": 33.33,
+        "incorrect_pct": 66.67
+      }
+    }
+  },
+  "by_category": {
+    "กฎระเบียบหรือหลักเกณฑ์ในการให้ระดับคะแนน(เกรด)": {
+      "total": 3,
+      "chatbot_metrics": {
+        "correct_count": 2,
+        "incorrect_count": 1,
+        "correct_pct": 66.67,
+        "incorrect_pct": 33.33
+      },
+      "gemini_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 2,
+        "correct_pct": 33.33,
+        "incorrect_pct": 66.67
+      }
+    },
+    "กระบวนการทวนสอบมาตรฐานผลสัมฤทธิ์ของนักศึกษา": {
+      "total": 3,
+      "chatbot_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 2,
+        "correct_pct": 33.33,
+        "incorrect_pct": 66.67
+      },
+      "gemini_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 2,
+        "correct_pct": 33.33,
+        "incorrect_pct": 66.67
+      }
+    },
+    "กลยุทธ์การดําเนินการเพื่อแก้ไขปัญหาและข้อจํากัดของนักศึกษาในข้อ5": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "กลุ่มเสริมสร้างคุณภาพชีวิตและวิถีพลเมืองที่ดี": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "กลุ่มเสริมสร้างทักษะการเป็นผู้ประกอบการและสร้างนวัตกรรม(Entrepreneurship and Innovation Skill Building Courses)": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "กลุ่มเสริมสร้างทักษะการใช้ภาษาและการสื่อสาร(Language and Communication Skills Development Courses)": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "กลุ่มเสริมสร้างทักษะในศตวรรษที่ 21(21st Century Skills Development Courses)": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การกลับเข้าศึกษาต่อ": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      }
+    },
+    "การขอหลักฐานทางการศึกษา": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การคิดระดับคะแนนเฉลี่ย": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การจัดการศึกษาภาคฤดูร้อน": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      },
+      "gemini_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      }
+    },
+    "การชำระเงิน": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การดําเนินการหลักสูตร": {
+      "total": 2,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การตรวจผลการเรียน": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การติดสภาพวิทยาทัณฑ์และการแก้ไข": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การถอนรายวิชาผิดพลาด": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การถอนวิชาเรียน": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      }
+    },
+    "การถอนวิชาเรียนล่าช้า": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      },
+      "gemini_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      }
+    },
+    "การถอนวิชาเรียนล่าช้ากรณีพิเศษ": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การประเมินผู้เรียน": {
+      "total": 2,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การพิจารณาอนุมัติ/เห็นชอบหมวดวิชาศึกษาทั่วไป": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การพ้นสภาพนักศึกษา": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การลงทะเบียน": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      }
+    },
+    "การลงโทษนักศึกษาผู้กระทําความผิด": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การลากิจ": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      },
+      "gemini_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      }
+    },
+    "การลาป่วย": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การลาพักการศึกษา": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การเทียบเคียงหน่วยกิตในระบบทวิภาค การเทียบโอนหน่วยกิต รายวิชาและการลงทะเบียนเรียนข้ามมหาวิทยาลัย(ถ้ามี)": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การเทียบแทนวิชาเรียน": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การเปลี่ยนตอนเรียน": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การเพิ่มวิชาเรียน": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การเพิ่มวิชาเรียนล่าช้า": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การเรียนการสอน": {
+      "total": 2,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "การโอนผลการเรียน": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      },
+      "gemini_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      }
+    },
+    "การได้รับเกียรตินิยม": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      },
+      "gemini_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      }
+    },
+    "ข้อกําหนดเกี่ยวกับการทําโครงงานหรืองานวิจัย": {
+      "total": 2,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "ข้อกําหนดเกี่ยวกับการทําโครงงานหรืองานวิจัย(ถ้ามี)": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "ความสําคัญของหลักสูตร": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "ความสําคัญและวัตถุประสงค์ของหลักสูตร": {
+      "total": 2,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "คุณสมบัติของผู้สําเร็จการศึกษา": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      }
+    },
+    "ค่าปรับลงทะเบียนล่าช้า": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "คําอธิบายรายวิชา": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      }
+    },
+    "จุดเด่นของหลักสูตรหลักสูตร": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "จํานวนหน่วยกิตที่เรียนตลอดหลักสูตร": {
+      "total": 4,
+      "chatbot_metrics": {
+        "correct_count": 3,
+        "incorrect_count": 1,
+        "correct_pct": 75.0,
+        "incorrect_pct": 25.0
+      },
+      "gemini_metrics": {
+        "correct_count": 3,
+        "incorrect_count": 1,
+        "correct_pct": 75.0,
+        "incorrect_pct": 25.0
+      }
+    },
+    "ชื่อ - นามสกุล ตําแหน่ง และคุณวุฒิการศึกษาของอาจารย์": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "ชื่อ-นามสกุล ตําแหน่ง และคุณวุฒิการศึกษาของอาจารย์": {
+      "total": 2,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "ชื่อปริญญาและสาขาวิชา": {
+      "total": 3,
+      "chatbot_metrics": {
+        "correct_count": 3,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 3,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "ชุดวิชากีฬาและนันทนาการ (Sport and Recreation Courses)": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "ทรานสคริปต์": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "นักศึกษา": {
+      "total": 2,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "ปฎิทินการลงทะเบียน": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "ปฏิทินการศึกษา": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "ปรัชญา": {
+      "total": 2,
+      "chatbot_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 1,
+        "correct_pct": 50.0,
+        "incorrect_pct": 50.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "ปรัชญาของหลักสูตร": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      },
+      "gemini_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      }
+    },
+    "ปัญหาของนักศึกษาแรกเข้า": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      },
+      "gemini_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      }
+    },
+    "ผู้รับผิดชอบหลักสูตร": {
+      "total": 2,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "มาตรฐานผลการเรียนรู้ของประสบการณ์ภาคสนาม": {
+      "total": 2,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "รหัสและชื่อหลักสูตร": {
+      "total": 3,
+      "chatbot_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 2,
+        "correct_pct": 33.33,
+        "incorrect_pct": 66.67
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 3,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "ระบบการจัดการศึกษา": {
+      "total": 3,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 3,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 3,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "ระบบการวัดผลการศึกษา": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "ระยะเวลาในหลักสูตร": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "รายวิชาในแต่ละหมวดวิชาและจํานวนหน่วยกิต": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "รูปถ่ายนักศึกษา": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "รูปแบบของหลักสูตร": {
+      "total": 3,
+      "chatbot_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 2,
+        "correct_pct": 33.33,
+        "incorrect_pct": 66.67
+      },
+      "gemini_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 2,
+        "correct_pct": 33.33,
+        "incorrect_pct": 66.67
+      }
+    },
+    "วัตถุประสงค์ของหลักสูตร": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "วัน-เวลาในการดําเนินการเรียนการสอน": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      },
+      "gemini_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      }
+    },
+    "วิชาเอก": {
+      "total": 3,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 3,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 3,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "วินัยนักศึกษาโทษฐานผิดวินัยนักศึกษา": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "สถานที่จัดการเรียนการสอน": {
+      "total": 2,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "สิ่งสนับสนุนการเรียนรู้": {
+      "total": 2,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "หนังสือรับรองการลาออก": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      }
+    },
+    "หนังสือรับรองคะแนนเฉลี่ยเพื่อขอรับทุน": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "หลักสูตรและอาจารย์ผู้สอน": {
+      "total": 2,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 2,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "องค์ประกอบเกี่ยวกับประสบการณ์ภาคสนาม(ถ้ามี)": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "อัตราค่าบํารุง": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "อาชีพที่สามารถประกอบได้หลังสําเร็จการศึกษา": {
+      "total": 3,
+      "chatbot_metrics": {
+        "correct_count": 2,
+        "incorrect_count": 1,
+        "correct_pct": 66.67,
+        "incorrect_pct": 33.33
+      },
+      "gemini_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 2,
+        "correct_pct": 33.33,
+        "incorrect_pct": 66.67
+      }
+    },
+    "เกณฑ์การสําเร็จการศึกษาตามหลักสูตร": {
+      "total": 3,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 3,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 3,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "แผนการศึกษา": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    },
+    "โครงสร้างหลักสูตร": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    }
+  },
+  "errors": {
+    "chatbot_answer_errors": 0,
+    "gemini_answer_errors": 0,
+    "chatbot_judge_errors": 0,
+    "gemini_judge_errors": 0
+  }
+}

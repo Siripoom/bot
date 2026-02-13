@@ -1,0 +1,61 @@
+{
+  "dataset_path": "data/json/qa_prompt.json",
+  "evaluated_at": "2026-02-13T09:45:00.444373+00:00",
+  "model_chatbot": "RAGPipeline(gen=gemini-2.5-flash, embed=gemini-embedding-001)",
+  "model_gemini_direct": "gemini-2.5-flash (context_mode=pdf)",
+  "model_judge": "gemini-2.5-flash",
+  "total_questions": 1,
+  "chatbot_metrics": {
+    "correct_count": 1,
+    "incorrect_count": 0,
+    "correct_pct": 100.0,
+    "incorrect_pct": 0.0
+  },
+  "gemini_metrics": {
+    "correct_count": 0,
+    "incorrect_count": 1,
+    "correct_pct": 0.0,
+    "incorrect_pct": 100.0
+  },
+  "delta_correct_pct": 100.0,
+  "by_source_document": {
+    "คู่มือนักศึกษา": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    }
+  },
+  "by_category": {
+    "การลงทะเบียน": {
+      "total": 1,
+      "chatbot_metrics": {
+        "correct_count": 1,
+        "incorrect_count": 0,
+        "correct_pct": 100.0,
+        "incorrect_pct": 0.0
+      },
+      "gemini_metrics": {
+        "correct_count": 0,
+        "incorrect_count": 1,
+        "correct_pct": 0.0,
+        "incorrect_pct": 100.0
+      }
+    }
+  },
+  "errors": {
+    "chatbot_answer_errors": 0,
+    "gemini_answer_errors": 0,
+    "chatbot_judge_errors": 0,
+    "gemini_judge_errors": 0
+  }
+}

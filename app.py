@@ -4,7 +4,6 @@ import streamlit as st
 import base64
 import os
 from rag.config import load_settings
-from rag.models import RetrievedChunk
 from rag.pipeline import RAGPipeline
 
 # --- 1. SET PAGE CONFIG ---
@@ -225,21 +224,11 @@ else:
     # Chat History
     for msg in st.session_state["messages"]:
         if msg["role"] == "user":
-            st.markdown(f'''<div class="chat-message user-message"><div class="message-label user-label">🙋 คุณ:</div><div>{msg["content"]}</div></div>''', unsafe_allow_html=True)
+            with st.chat_message("user", avatar="🙋"):
+                st.markdown(msg["content"])
         else:
-            st.markdown(f'''
-                <div class="chat-message bot-message">
-                    <div class="message-label bot-label">
-                        <img src="data:image/png;base64,{bot_logo}" style="width: 28px; height: 28px; vertical-align: middle; margin-right: 8px;"> 
-                        Askgiraffe:
-                    </div>
-                    <div>{msg["content"]}</div>
-                </div>
-            ''', unsafe_allow_html=True)
-            # if msg.get("citations"):
-            #     with st.expander("📚 เอกสารอ้างอิง", expanded=False):
-            #         for c in msg["citations"]:
-            #             st.markdown(f"📍 **{c.file_name}** (หน้า {c.page}): {c.text[:250]}...")
+            with st.chat_message("assistant", avatar="🦒"):
+                st.markdown(msg["content"])
 
     query = st.chat_input("✨ พิมพ์คำถามของคุณที่นี่...")
 
