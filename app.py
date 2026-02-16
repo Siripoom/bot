@@ -3,6 +3,8 @@ from pathlib import Path
 import streamlit as st
 import base64
 import os
+from html import escape
+from markdown_it import MarkdownIt
 from rag.config import load_settings
 from rag.pipeline import RAGPipeline
 
@@ -28,12 +30,17 @@ bot_logo = get_base64_image("Askgiraffe.png")
 # --- 3. FULL CUSTOM CSS (ปรับปรุง Sidebar ให้สวยงามและอ่านง่าย) ---
 st.markdown(f"""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap');
-    
+    @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
     # /* Import Material Icons เพื่อแก้ปัญหาข้อความ keyboard_double_arrow_right */
     # @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
-    * {{ font-family: 'Kanit', sans-serif !important; }}
+    :root {{
+        --font-main: 'Kanit', sans-serif !important;
+    }}
+    * {{ font-family: var(--font-main) !important; }}
+    html, body, [data-testid="stAppViewContainer"], [data-testid="stMarkdownContainer"] {{
+        font-family: var(--font-main) !important;
+    }}
 
     /* Background Setup */
     .stApp {{
@@ -105,24 +112,106 @@ st.markdown(f"""
     .sub-header {{
         font-size: 1.3rem; font-weight: 600; color: #047857; text-align: center; margin-bottom: 2.5rem;
     }}
-    .chat-message {{
-        padding: 1.75rem; border-radius: 1rem; margin-bottom: 1.25rem;
-        display: flex; flex-direction: column; color: #1F2937;
-        transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    .chat-thread {{
+        width: 100%;
     }}
-    .user-message {{
-        background: white;
-        border-right: 5px solid #10B981; border: 2px solid #D1FAE5;
-        margin-left: 15%; align-items: flex-end; text-align: right;
+    .chat-row {{
+        width: 100%;
+        display: flex;
+        margin-bottom: 0.95rem;
     }}
-    .bot-message {{
-        background: #F0FDF4;
-        border-left: 5px solid #059669; border: 1px solid #D1FAE5;
-        margin-right: 15%; align-items: flex-start; text-align: left;
+    .chat-row.user {{
+        justify-content: flex-end;
     }}
-    .message-label {{ font-weight: 600; margin-bottom: 0.75rem; font-size: 1rem; }}
-    .user-label {{ color: #10B981; }}
-    .bot-label {{ color: #059669; }}
+    .chat-row.assistant {{
+        justify-content: flex-start;
+    }}
+    .chat-bubble {{
+        border-radius: 1rem;
+        padding: 1rem 1.2rem;
+        box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
+        color: #1F2937;
+    }}
+    .chat-bubble.user {{
+        width: min(62%, 900px);
+        background: #FFFFFF;
+        border: 2px solid #D1FAE5;
+        border-right: 5px solid #10B981;
+    }}
+    .chat-bubble.assistant {{
+        width: min(78%, 1100px);
+        background: #ECFDF5;
+        border: 1px solid #A7F3D0;
+        border-left: 5px solid #059669;
+    }}
+    .bubble-label {{
+        font-size: 0.95rem;
+        font-weight: 700;
+        margin-bottom: 0.55rem;
+    }}
+    .bubble-label.user {{
+        color: #047857;
+        text-align: right;
+    }}
+    .bubble-label.assistant {{
+        color: #065F46;
+        text-align: left;
+    }}
+    .chat-bubble-content {{
+        font-size: 1.02rem;
+        line-height: 1.8;
+        color: #111827;
+        word-break: break-word;
+    }}
+    .chat-bubble-content p {{
+        margin: 0.2rem 0 0.95rem;
+    }}
+    .chat-bubble-content p:last-child {{
+        margin-bottom: 0;
+    }}
+    .chat-bubble-content ul,
+    .chat-bubble-content ol {{
+        margin: 0.35rem 0 1rem 1.2rem;
+        padding-left: 0.55rem;
+    }}
+    .chat-bubble-content li {{
+        margin: 0.2rem 0;
+    }}
+    .chat-bubble-content code {{
+        background: #DCFCE7;
+        color: #14532D;
+        border-radius: 0.35rem;
+        padding: 0.08rem 0.38rem;
+        font-size: 0.94em;
+    }}
+    .chat-bubble-content pre {{
+        margin: 0.7rem 0 1rem;
+        background: #0F172A;
+        color: #E2E8F0;
+        border-radius: 0.8rem;
+        padding: 0.95rem;
+        overflow-x: auto;
+    }}
+    .chat-bubble-content pre code {{
+        background: transparent;
+        color: inherit;
+        padding: 0;
+    }}
+    @media (max-width: 768px) {{
+        .chat-bubble.user {{
+            width: 90%;
+        }}
+        .chat-bubble.assistant {{
+            width: 94%;
+        }}
+        .main-header {{
+            font-size: 2.2rem;
+        }}
+        .sub-header {{
+            font-size: 1.08rem;
+            margin-bottom: 1.8rem;
+        }}
+    }}
 
     /* Welcome Stage */
     .welcome-stage {{ min-height: 48vh; display: flex; align-items: center; justify-content: center; }}
@@ -138,6 +227,29 @@ st.markdown(f"""
 @st.cache_resource
 def get_pipeline() -> RAGPipeline:
     return RAGPipeline()
+
+_markdown_renderer = MarkdownIt("commonmark", {"html": False, "breaks": True})
+
+
+def render_chat_bubble(message: dict[str, object]) -> None:
+    role = "user" if str(message.get("role", "")) == "user" else "assistant"
+    label = "ผู้ถาม" if role == "user" else "Askgiraffe"
+    raw_content = str(message.get("content", ""))
+    content_html = _markdown_renderer.render(escape(raw_content))
+    st.markdown(
+        f"""
+        <div class="chat-thread">
+            <div class="chat-row {role}">
+                <div class="chat-bubble {role}">
+                    <div class="bubble-label {role}">{label}</div>
+                    <div class="chat-bubble-content">{content_html}</div>
+                </div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
 
 def _recent_history(messages: list[dict], turns: int) -> list[dict]:
     max_messages = max(1, turns * 2)
@@ -223,12 +335,7 @@ else:
 
     # Chat History
     for msg in st.session_state["messages"]:
-        if msg["role"] == "user":
-            with st.chat_message("user", avatar="🙋"):
-                st.markdown(msg["content"])
-        else:
-            with st.chat_message("assistant", avatar="🦒"):
-                st.markdown(msg["content"])
+        render_chat_bubble(msg)
 
     query = st.chat_input("✨ พิมพ์คำถามของคุณที่นี่...")
 

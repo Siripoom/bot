@@ -62,6 +62,9 @@ python scripts/index_pdfs.py --pdf-dir data/pdfs --reset
 ```bash
 streamlit run app.py
 ```
+หมายเหตุฟอนต์:
+- หากฟอนต์ Kanit ยังไม่เปลี่ยนทันที ให้หยุดแล้วรัน `streamlit run app.py` ใหม่
+- จากนั้นทำ hard refresh ที่เบราว์เซอร์ด้วย `Ctrl+Shift+R`
 
 ## Benchmark: Chatbot vs Gemini Direct
 รันเปรียบเทียบคำตอบจากคำถามใน `data/json/qa_prompt.json`:
