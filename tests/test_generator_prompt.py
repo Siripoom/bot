@@ -23,8 +23,8 @@ def test_build_prompt_partial_mode_contains_required_sections() -> None:
         style_policy="auto",
     )
     assert "## ข้อมูลที่พบ" in prompt
-    assert "## สิ่งที่ยังไม่ชัดเจน" in prompt
     assert "## คำถามแนะนำต่อ" in prompt
+    assert "## สิ่งที่ยังไม่ชัดเจน" not in prompt
 
 
 def test_build_prompt_auto_style_contains_format_rules() -> None:

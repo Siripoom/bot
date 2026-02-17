@@ -31,8 +31,7 @@ bot_logo = get_base64_image("Askgiraffe.png")
 st.markdown(f"""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-    # /* Import Material Icons เพื่อแก้ปัญหาข้อความ keyboard_double_arrow_right */
-    # @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+    @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
     :root {{
         --font-main: 'Kanit', sans-serif !important;
@@ -59,7 +58,7 @@ st.markdown(f"""
         border-right: 1px solid #A7F3D0;
     }}
 
-    /* หัวข้อ Sidebar - สีดำเข้มอ่านง่าย */
+    /* Sidebar Header */
     [data-testid="stSidebar"] h3 {{
         color: #064E3B !important;
         font-weight: 700 !important;
@@ -69,13 +68,13 @@ st.markdown(f"""
         padding-left: 10px !important;
     }}
 
-    /* ตัวหนังสือทั่วไปใน Sidebar - สีดำสนิท */
+    /* Sidebar Text */
     [data-testid="stSidebar"] p, [data-testid="stSidebar"] span, [data-testid="stSidebar"] label {{
-        color: #111827 !important;
+        
         font-weight: 500 !important;
     }}
 
-    /* Sidebar Content Card - สีขาวสะอาดตา */
+    /* Sidebar Content Card */
     .sidebar-card {{
         background: white;
         padding: 1.25rem;
@@ -85,7 +84,7 @@ st.markdown(f"""
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
     }}
 
-    /* Sidebar Buttons - Emerald Green */
+    /* Sidebar Buttons */
     [data-testid="stSidebar"] .stButton > button {{
         width: 100%;
         border-radius: 0.8rem !important;
@@ -96,6 +95,9 @@ st.markdown(f"""
         padding: 0.6rem !important;
         transition: all 0.3s ease !important;
         box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2) !important;
+    }}
+    [data-testid="stSidebar"] .stButton > button span {{
+        color: white !important;
     }}
     [data-testid="stSidebar"] .stButton > button:hover {{
         background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
