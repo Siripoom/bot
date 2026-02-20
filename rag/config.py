@@ -33,6 +33,11 @@ class Settings:
     answer_style_policy: str = "auto"
     log_file: Path = Path("logs/app.log")
     memory_turns: int = 6
+    llm_temperature: float = 0.0
+    llm_top_p: float = 1.0
+    gen_retry_on_refusal: int = 1
+    auto_heal_index: bool = True
+    auto_heal_min_docs: int = 1
 
     def ensure_paths(self) -> None:
         self.pdf_dir.mkdir(parents=True, exist_ok=True)
@@ -65,6 +70,11 @@ def load_settings() -> Settings:
         answer_style_policy=os.getenv("ANSWER_STYLE_POLICY", "auto").strip() or "auto",
         log_file=Path(os.getenv("LOG_FILE", "logs/app.log")),
         memory_turns=int(os.getenv("MEMORY_TURNS", "6")),
+        llm_temperature=float(os.getenv("LLM_TEMPERATURE", "0.0")),
+        llm_top_p=float(os.getenv("LLM_TOP_P", "1.0")),
+        gen_retry_on_refusal=max(0, int(os.getenv("GEN_RETRY_ON_REFUSAL", "1"))),
+        auto_heal_index=_env_bool(os.getenv("AUTO_HEAL_INDEX"), default=True),
+        auto_heal_min_docs=max(1, int(os.getenv("AUTO_HEAL_MIN_DOCS", "1"))),
     )
     settings.ensure_paths()
     return settings

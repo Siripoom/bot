@@ -10,11 +10,13 @@ from .models import RAGAnswer, RetrievedChunk
 
 
 class GeminiAnswerGenerator:
-    def __init__(self, api_key: str, model: str) -> None:
+    def __init__(self, api_key: str, model: str, temperature: float = 0.0, top_p: float = 1.0) -> None:
         if not api_key:
             raise ValueError("GEMINI_API_KEY is required")
         self.client = genai.Client(api_key=api_key)
         self.model = model
+        self.temperature = temperature
+        self.top_p = top_p
 
     def generate_answer(
         self,
@@ -34,7 +36,11 @@ class GeminiAnswerGenerator:
             mode=mode,
             style_policy=style_policy,
         )
-        response = self.client.models.generate_content(model=self.model, contents=prompt)
+        response = self.client.models.generate_content(
+            model=self.model,
+            contents=prompt,
+            config={"temperature": self.temperature, "top_p": self.top_p},
+        )
         answer_text = _response_text(response).strip() or REFUSAL_MESSAGE
 
         refusal = answer_text == REFUSAL_MESSAGE
@@ -85,7 +91,8 @@ def _mode_instruction(mode: str) -> str:
         return (
             "โหมดนี้เป็นการตอบแบบมีเงื่อนไข: ให้ตอบเฉพาะข้อมูลที่ยืนยันได้จาก CONTEXT\n"
             "บังคับโครงสร้างคำตอบเป็น Markdown ตามหัวข้อต่อไปนี้เท่านั้น:\n"
-            "## Askgiraffe\n"
+            "## ข้อมูลที่พบ\n"
+            "## คำตอบ\n"
             "## คำถามแนะนำต่อ\n"
             "หัวข้อสุดท้ายต้องมีคำถามต่อยอด 2-3 ข้อในรูปแบบ bullet"
         )

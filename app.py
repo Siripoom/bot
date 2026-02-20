@@ -31,7 +31,6 @@ bot_logo = get_base64_image("Askgiraffe.png")
 st.markdown(f"""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-    @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
     :root {{
         --font-main: 'Kanit', sans-serif !important;
@@ -260,6 +259,8 @@ def _recent_history(messages: list[dict], turns: int) -> list[dict]:
 # --- 5. SIDEBAR (ปรับปรุงให้สวยงามและอ่านง่าย) ---
 settings = load_settings()
 pipeline = get_pipeline()
+auto_heal_status = pipeline.ensure_pdf_index_healthy()
+index_stats = pipeline.get_index_stats()
 
 with st.sidebar:
     # Branding Area
@@ -289,6 +290,19 @@ with st.sidebar:
                 <span style="background: #064E3B; color: white; padding: 4px 12px; border-radius: 8px; font-weight: 700;">
                     {len(pdf_files)} ไฟล์
                 </span>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
+    st.markdown(f"""
+        <div class="sidebar-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                <span style="font-size: 1rem; color: #111827;">Index health:</span>
+                <span style="background: #065F46; color: white; padding: 4px 12px; border-radius: 8px; font-weight: 700;">
+                    {index_stats.get("document_count", 0)} docs / {index_stats.get("chunk_count", 0)} chunks
+                </span>
+            </div>
+            <div style="font-size: 0.88rem; color: #374151;">
+                Auto-heal: {auto_heal_status.get("action", "unknown")}
             </div>
         </div>
     """, unsafe_allow_html=True)

@@ -48,6 +48,15 @@ PARTIAL_ENABLED=true
 PARTIAL_MIN_SCORE=0.68
 PARTIAL_MIN_CHUNKS=2
 
+# llm determinism + refusal retry
+LLM_TEMPERATURE=0.0
+LLM_TOP_P=1.0
+GEN_RETRY_ON_REFUSAL=1
+
+# startup self-heal for index
+AUTO_HEAL_INDEX=true
+AUTO_HEAL_MIN_DOCS=1
+
 # output style: auto | list | paragraph
 ANSWER_STYLE_POLICY=auto
 ```
@@ -62,6 +71,10 @@ python scripts/index_pdfs.py --pdf-dir data/pdfs --reset
 ```bash
 streamlit run app.py
 ```
+หมายเหตุ index:
+- เมื่อเปิดแอป ระบบจะตรวจสุขภาพ index อัตโนมัติ และ re-index ให้เองถ้าดัชนีว่าง/ไม่ครบตามเกณฑ์
+- ปุ่ม `🔄 อัปเดต Index เอกสาร` ใน sidebar เป็นการสั่ง forced rebuild
+
 หมายเหตุฟอนต์:
 - หากฟอนต์ Kanit ยังไม่เปลี่ยนทันที ให้หยุดแล้วรัน `streamlit run app.py` ใหม่
 - จากนั้นทำ hard refresh ที่เบราว์เซอร์ด้วย `Ctrl+Shift+R`
@@ -88,6 +101,23 @@ python3 scripts/benchmark_chatbot_vs_gemini.py --gemini-context-mode pdf --gemin
 หมายเหตุ:
 - ค่าเริ่มต้นของ baseline ตอนนี้คือ `--gemini-context-mode pdf` (ดึง context จากไฟล์ PDF ที่ index แล้ว)
 - ถ้าต้องการทดสอบแบบไม่เชื่อมชุดข้อมูล ให้ใช้ `--gemini-context-mode none`
+
+## Ragas Evaluation (Chatbot Only)
+รันประเมินคุณภาพคำตอบของ chatbot ด้วย Ragas:
+
+```bash
+python3 scripts/evaluate_ragas.py
+```
+
+ไฟล์ผลลัพธ์:
+- `reports/ragas_results.csv` (รายข้อ)
+- `reports/ragas_summary.json` (สรุปค่าเฉลี่ย metric)
+
+ตัวเลือกเพิ่มเติม:
+```bash
+python3 scripts/evaluate_ragas.py --limit 10
+python3 scripts/evaluate_ragas.py --ragas-llm-model gemini-2.5-flash --ragas-embed-model gemini-embedding-001
+```
 
 ## นโยบายการตอบ
 ถ้าเอกสารไม่พอสำหรับตอบคำถาม ระบบจะตอบ:
